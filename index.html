@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <title>MCQ Quiz</title>
+    <!-- Google Font -->
+  
+    <!-- Stylesheet -->
+  <style>* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  
+  
+    .number-of-count {
+        order: 1;
+        font-size: 4em;
+        color: #fff;
+        background-color: rgba(0, 0, 0, 0.6);
+           border-radius: 0.5em;
+           padding: 5px;
+    
+
+      }
+  }
+  body {
+    background-image: url('image/صفحة\ البدأ\ للمسابقة.jpg');
+    background-size: cover;
+    
+  }
+  .start-screen,
+  .score-container {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+  }
+  button {
+    margin: 20px;
+  display: block; /* يجعل كل زر عنصرًا منفصلًا ويضعه في سطر جديد */
+  width: 100%; /* يجعل الزر يمتد على عرض الحاوية */
+  font: inherit;
+  background-color: #ffffff; /* لون خلفية الزر */
+  border: 1px solid #cccccc; /* حدود الزر */
+  color: #242424;
+  border-radius: 0.5em;
+  font-size: 1.55rem;
+  padding: 0.375em 1em;
+  font-weight: 600;
+  text-shadow: 0 0.0625em 0 #fff;
+  box-shadow: inset 0 0.0625em 0 0 #f4f4f4, 0 0.0625em 0 0 #efefef,
+    0 0.125em 0 0 #ececec, 0 0.25em 0 0 #e0e0e0, 0 0.3125em 0 0 #dedede,
+    0 0.375em 0 0 #dcdcdc, 0 0.425em 0 0 #cacaca, 0 0.425em 0.5em 0 #cecece;
+  transition: 0.15s ease;
+  cursor: pointer;
+  margin-bottom: 10px;
+  }
+  #start-button,
+  #restart {
+    font-size: 1.3em;
+    padding: 0.5em 1.8em;
+    border-radius: 0.2em;
+    width:20%;
+
+    margin-top:30%;
+    color: #050801;
+    box-shadow:
+      0 0 5px #17c47c,
+      0 0 25px #17c47c,
+      0 0 50px #17c47c,
+      0 0 200px #17c47c;
+
+  }
+  #restart {
+    margin-top: 0.9em;
+  }
+  #display-container {
+    
+    
+  /* From https://css.glass */
+background: rgba(255, 255, 255, 0.25);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(10.5px);
+-webkit-backdrop-filter: blur(10.5px);
+border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 3.1em 1.8em;
+    width: 90%;
+
+    margin: 0 auto;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 0.6em;
+    
+    
+  
+  }
+  .header {
+    margin-bottom: 1.8em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0.6em;
+    
+  
+    border-bottom: 0.1em solid #189114;
+  }
+  .timer-div {
+    background-color:#0a8533;
+    width: 4.5em;
+    border-radius: 1.8em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.7em 1.8em;
+    color: #050801;
+    box-shadow:
+      0 0 5px #17c47c,
+      0 0 25px #17c47c,
+      0 0 50px #17c47c,
+      0 0 200px #17c47c;
+  }
+  .question {
+    margin-bottom: 1.25em;
+    font-weight: 600;
+    text-align: right;
+    font-size: 30px;
+   
+  
+  }
+  .option-div {
+
+ 
+  
+ 
+   
+    font: inherit;
+
+  background-color: #f0f0f0;
+  border: 0;
+  color: #242424;
+  border-radius: 0.5em;
+  font-size: 1.55rem;
+  padding: 0.375em 1em;
+  font-weight: 600;
+  text-shadow: 0 0.0625em 0 #fff;
+  box-shadow: inset 0 0.0625em 0 0 #f4f4f4, 0 0.0625em 0 0 #efefef,
+    0 0.125em 0 0 #ececec, 0 0.25em 0 0 #e0e0e0, 0 0.3125em 0 0 #dedede,
+    0 0.375em 0 0 #dcdcdc, 0 0.425em 0 0 #cacaca, 0 0.425em 0.5em 0 #cecece;
+  transition: 0.15s ease;
+  cursor: pointer;
+  
+}
+button:active {
+  translate: 0 0.225em;
+  box-shadow: inset 0 0.03em 0 0 #f4f4f4, 0 0.03em 0 0 #efefef,
+    0 0.0625em 0 0 #ececec, 0 0.125em 0 0 #e0e0e0, 0 0.125em 0 0 #dedede,
+    0 0.2em 0 0 #dcdcdc, 0 0.225em 0 0 #cacaca, 0 0.225em 0.375em 0 #cecece;
+}
+
+  .option-div:disabled {
+    color: #000000;
+    cursor: not-allowed;
+  }
+  #next-button {
+    font-size: 1em;
+    margin: 1.5em;
+    background-color: #0a69ed;
+    color: #ffffff;
+    padding: 0.7em 1.8em;
+    border-radius: 0.3em;
+    float: left;
+    width: 111px;
+  }
+  .hide {
+    display: none;
+    color: #ffffff;
+  }
+  .incorrect {
+    background-color: #ffdde0;
+    color: #d32f2f;
+    border-color: #d32f2f;
+  }
+  .correct {
+    background-color: #e7f6d5;
+    color: #689f38;
+    border-color: #689f38;
+  }
+  #user-score {
+    font-size: 4em;
+        color: #fff;
+        background-color: rgba(0, 0, 0, 0.6);
+        padding: 1em;
+        border-radius: 0.5em;
+        margin-bottom: 1em;
+
+ 
+  
+  }
+  .hide {
+    display: none;
+  }
+  .correct {
+    background-color: green;
+  }
+  .incorrect {
+    background-color: red;
+  }
+  .warning-bg {
+    background-color: red;
+  
+   
+  
+  }
+  
+  </style>
+  </head>
+  <body>
+
+    <div class="start-screen">
+      <button id="start-button">ابدا</button>
+    </div>
+    <div id="display-container">
+      <div class="header">
+        <div class="number-of-count">
+          <span class="number-of-question" style="font-size: 35px;">سؤال 1</span>
+        </div>
+        <div class="timer-div ">
+
+          <span class="time-left">10</span>
+        </div>
+      </div>
+      <div id="container">
+        <!-- questions and options will be displayed here -->
+      </div >
+      <button id="next-button">التالي</button>
+    </div>
+    <div class="score-container hide">
+      <div id="user-score">Demo Score</div>
+      <button id="restart">اعاده</button>
+    </div>
+    <!-- Script -->
+
+
+    <script >
+  
+  //References
+let timeLeft = document.querySelector(".time-left");
+let timeLeft1 = document.querySelector(".timer-div");
+let quizContainer = document.getElementById("container");
+let nextBtn = document.getElementById("next-button");
+let countOfQuestion = document.querySelector(".number-of-question");
+let displayContainer = document.getElementById("display-container");
+let scoreContainer = document.querySelector(".score-container");
+let restart = document.getElementById("restart");
+let userScore = document.getElementById("user-score");
+let startScreen = document.querySelector(".start-screen");
+let startButton = document.getElementById("start-button");
+let questionCount;
+let scoreCount = 0;
+let count = 11;
+let displayedQuestionsCount = 0;
+
+let countdown;
+
+//Questions and Options array
+
+const quizArray = [
+  {
+    id: "0",
+    question: "ما هي السوره التي لايوجد فيها بسمله؟",
+    options: ["سورة الفاتحة", "سورة التوبة", "سورة البقرة", "سورة الاحزاب"],
+    correct: "سورة التوبة",
+  },
+  {
+    id: "1",
+    question: "ما هي قلب القران الكريم؟",
+    options: ["سورة الزمر", "سورة العصر", "سورة التحريم", "سورة يس"],
+    correct: "سورة يس",
+  },
+  {
+    id: "2",
+    question: "ما هي السورة التي ذكر فيها البسملة مرتين",
+    options: ["سورة العصر", "سورة النمل", "سورة الحج", "سورة التكاثر"],
+    correct: "سورة النمل",
+  },
+  {
+    question: "في أي سورة توجد آية الكرسي؟",
+    options: ["البقرة", "آل عمران", "النساء", "المائدة"],
+    correct: "البقرة"
+  },
+  {
+    question: "من هو النبي الذي ذكر في القرآن بأنه نجا في السفينة؟",
+    options: ["موسى", "يوسف", "نوح", "إبراهيم"],
+    correct: "نوح"
+  },
+  {
+    question: "ما هي السورة التي تُسمى 'قلب القرآن'؟",
+    options: ["البقرة", "آل عمران", "ياسين", "الكهف"],
+    correct: "ياسين"
+  },
+  {
+    question: "كم عدد سور القرآن الكريم؟",
+    options: ["110", "114", "120", "124"],
+    correct: "114"
+  },
+  {
+    question: "ما هي السورة التي تُسمى 'أم الكتاب'؟",
+    options: ["الفاتحة", "البقرة", "آل عمران", "الكهف"],
+    correct: "الفاتحة"
+  },
+  {
+    question: "من هو النبي الذي ابتلعته الحوت؟",
+    options: ["موسى", "يوسف", "يونس", "إبراهيم"],
+    correct: "يونس"
+  },
+  {
+    question: "في أي سورة تذكر قصة النبي يوسف؟",
+    options: ["البقرة", "يوسف", "مريم", "القصص"],
+    correct: "يوسف"
+  },
+  {
+    question: "ما هي السورة التي تُسمى 'السورة المُحكمة'؟",
+    options: ["البقرة", "النساء", "الكهف", "الفاتحة"],
+    correct: "الفاتحة"
+  },
+  {
+    question: "كم عدد آيات سورة الفاتحة؟",
+    options: ["5", "6", "7", "8"],
+    correct: "7"
+  },
+  {
+    question: "من هو أول نبي ذكر في القرآن الكريم؟",
+    options: ["نوح", "آدم", "إبراهيم", "موسى"],
+    correct: "آدم"
+  },
+  {
+    question: "ما هي السورة التي نزلت كاملة في مكة المكرمة؟",
+    options: ["البقرة", "الفاتحة", "يوسف", "الكوثر"],
+    correct: "الفاتحة"
+  },
+  {
+    question: "ما هو البحر الذي انفلق لموسى وقومه؟",
+    options: ["البحر الأحمر", "البحر الأسود", "البحر الميت", "البحر الأبيض المتوسط"],
+    correct: "البحر الأحمر"
+  },
+  {
+    question: "في أي سورة تذكر قصة ذو القرنين؟",
+    options: ["البقرة", "الكهف", "يوسف", "إبراهيم"],
+    correct: "الكهف"
+  },
+  {
+    question: "ما هي السورة التي تُسمى 'المنجية'؟",
+    options: ["البقرة", "الكهف", "ياسين", "الملك"],
+    correct: "الملك"
+  },
+  {
+    question: "من هو النبي الذي أرسل إلى قوم عاد؟",
+    options: ["صالح", "شعيب", "هود", "لوط"],
+    correct: "هود"
+  },
+  {
+    question: "ما هي السورة التي تتحدث عن غزوة بدر؟",
+    options: ["البقرة", "الأنفال", "التوبة", "الأحزاب"],
+    correct: "الأنفال"
+  },
+  {
+    question: "ما هو الجبل الذي تجلى عليه الله لموسى؟",
+    options: ["جبل أحد", "جبل الطور", "جبل النور", "جبل عرفات"],
+    correct: "جبل الطور"
+  },
+  {
+    question: "في أي سورة توجد آية: 'إن مع العسر يسرا'؟",
+    options: ["الفاتحة", "الضحى", "الشرح", "التين"],
+    correct: "الشرح"
+  },
+  {
+    question: "ما هي السورة التي تُسمى 'عروس القرآن'؟",
+    options: ["الفاتحة", "البقرة", "الرحمن", "يوسف"],
+    correct: "الرحمن"
+  },
+  {
+    question: "ما هي السورة التي نزلت بعد غزوة أحد؟",
+    options: ["البقرة", "آل عمران", "النساء", "المائدة"],
+    correct: "آل عمران"
+  },
+  {
+    question: "في أي سورة تذكر قصة هاروت وماروت؟",
+    options: ["البقرة", "آل عمران", "النساء", "المائدة"],
+    correct: "البقرة"
+  },
+  {
+    question: "من هو النبي الذي عاش في بطن الحوت؟",
+    options: ["موسى", "يوسف", "يونس", "إبراهيم"],
+    correct: "يونس"
+  },
+  {
+    question: "ما هي السورة التي تذكر فيها قصة أصحاب الفيل؟",
+    options: ["الفيل", "البقرة", "الكهف", "العلق"],
+    correct: "الفيل"
+  },
+  {
+    question: "كم عدد أجزاء القرآن الكريم؟",
+    options: ["20", "30", "40", "50"],
+    correct: "30"
+  },
+  {
+    question: "ما هي السورة التي تذكر فيها قصة قارون؟",
+    options: ["البقرة", "القصص", "يوسف", "مريم"],
+    correct: "القصص"
+  },
+
+
+  {
+    question: "من هو النبي الذي أُرسل إلى قوم ثمود؟",
+    options: ["صالح", "شعيب", "هود", "لوط"],
+    correct: "صالح"
+  },
+  {
+    question: "في أي سورة تذكر قصة إبليس ورفضه السجود لآدم؟",
+    options: ["البقرة", "الأعراف", "الكهف", "النمل"],
+    correct: "الأعراف"
+  },
+  {
+    question: "ما هي السورة التي تُسمى 'الكاشفة'؟",
+    options: ["الفاتحة", "البقرة", "الكهف", "التغابن"],
+    correct: "التغابن"
+  },
+  {
+    question: "من هو النبي الذي أُمر بذبح ابنه؟",
+    options: ["نوح", "يوسف", "إبراهيم", "موسى"],
+    correct: "إبراهيم"
+  },
+  {
+    question: "ما هي السورة التي تبدأ بذكر 'الرحمن'؟",
+    options: ["البقرة", "الرحمن", "مريم", "النور"],
+    correct: "الرحمن"
+  },
+  {
+    question: "في أي سورة تذكر قصة سليمان والنملة؟",
+    options: ["البقرة", "الكهف", "النمل", "مريم"],
+    correct: "النمل"
+  },
+  {
+    question: "ما هي السورة التي تُسمى 'المنجيات'؟",
+    options: ["البقرة", "الكهف", "ياسين", "الملك"],
+    correct: "الملك"
+  },
+  {
+    question: "في أي سورة تذكر قصة موسى وفرعون؟",
+    options: ["البقرة", "آل عمران", "القصص", "النمل"],
+    correct: "القصص"
+  },
+  {
+    question: "ما هي السورة التي نزلت بعد غزوة تبوك؟",
+    options: ["البقرة", "آل عمران", "التوبة", "الأحزاب"],
+    correct: "التوبة"
+  },
+  {
+    question: "ما هو الحيوان الذي تحدث مع سليمان؟",
+    options: ["الحوت", "النملة", "الهدهد", "الثعبان"],
+    correct: "الهدهد"
+  },
+  {
+    question: "ما هي السورة التي تبدأ بـ 'سبح اسم ربك الأعلى'؟",
+    options: ["الفاتحة", "الأعلى", "النصر", "العصر"],
+    correct: "الأعلى"
+  },
+  {
+    question: "ما هي السورة التي تذكر فيها قصة بلقيس؟",
+    options: ["البقرة", "يوسف", "النمل", "إبراهيم"],
+    correct: "النمل"
+  },
+  {
+    question: "ما أطول سورة في القرآن الكريم ؟",
+    options: ["البقرة", "يوسف", "النمل", "إبراهيم"],
+    correct: "البقرة"
+  },
+  {
+    question: "ما أقصر سورة في القرآن الكريم؟",
+    options: ["سورة الكوثر", "يوسف", "النمل", "إبراهيم"],
+    correct: "سورة الكوثر"
+  },
+ 
+  {
+    question: "من هو النبي الذي أُرسل إلى قوم مدين؟",
+    options: ["شعيب", "هود", "صالح", "إبراهيم"],
+    correct: "شعيب"
+  },
+  {
+    question: "في أي سورة ذكر الله قصة موسى والعصا؟",
+    options: ["البقرة", "الأعراف", "الكهف", "طه"],
+    correct: "طه"
+  },
+  {
+    question: "ما هي السورة التي تحدثت عن غزوة الخندق؟",
+    options: ["الأحزاب", "البقرة", "الأنفال", "النساء"],
+    correct: "الأحزاب"
+  },
+  {
+    question: "كم مرة ذكر اسم محمد في القرآن؟",
+    options: ["3 مرات", "4 مرات", "5 مرات", "6 مرات"],
+    correct: "4 مرات"
+  },
+  {
+    question: "ما هي السورة التي سميت باسم نبي؟",
+    options: ["إبراهيم", "موسى", "محمد", "هود"],
+    correct: "محمد"
+  },
+  {
+    question: "في أي سورة تذكر قصة أصحاب السبت؟",
+    options: ["البقرة", "النساء", "الأعراف", "الأنفال"],
+    correct: "الأعراف"
+  },
+  {
+    question: "ما هي السورة التي تحتوي على آية 'ربنا آتنا في الدنيا حسنة'؟",
+    options: ["البقرة", "آل عمران", "النساء", "الأنفال"],
+    correct: "البقرة"
+  },
+  {
+    question: "في أي سورة توجد آية 'ألم نشرح لك صدرك'؟",
+    options: ["الشرح", "الضحى", "الليل", "الفجر"],
+    correct: "الشرح"
+  },
+  {
+    question: "كم عدد سنوات نزول القرآن الكريم؟",
+    options: ["20 سنة", "21 سنة", "22 سنة", "23 سنة"],
+    correct: "23 سنة"
+  },
+  {
+    question: "ما هو لقب النبي محمد صلى الله عليه وسلم؟",
+    options: ["الصادق الأمين", "المجاهد", "الخاتم", "المختار"],
+    correct: "الصادق الأمين"
+  },
+  {
+    question: "كم عدد الأنبياء الذين ذكروا في القرآن؟",
+    options: ["23", "25", "27", "29"],
+    correct: "25"
+  },
+  {
+    question: "ما هي السورة التي تحتوي على أكبر عدد من آيات السجدة؟",
+    options: ["الحج", "الأعراف", "النساء", "الأنعام"],
+    correct: "الحج"
+  },
+  {
+    question: "من هو النبي الذي تحدث مع الله مباشرة؟",
+    options: ["موسى", "إبراهيم", "عيسى", "نوح"],
+    correct: "موسى"
+  },
+  {
+    question: "ما هو عدد المرات التي ذُكرت فيها كلمة 'رمضان' في القرآن؟",
+    options: ["مرة واحدة", "مرتين", "ثلاث مرات", "أربع مرات"],
+    correct: "مرة واحدة"
+  },
+  {
+    question: "ما هو أول ما نزل من القرآن؟",
+    options: ["الفاتحة", "العلق", "البقرة", "المائدة"],
+    correct: "العلق"
+  },
+  {
+    question: "كم مرة ذكر اسم 'جبريل' في القرآن؟",
+    options: ["مرتين", "ثلاث مرات", "أربع مرات", "خمس مرات"],
+    correct: "ثلاث مرات"
+  },
+  {
+    question: "في أي سورة تذكر قصة أصحاب الأخدود؟",
+    options: ["البروج", "النساء", "الفجر", "القصص"],
+    correct: "البروج"
+  },
+  {
+    question: "ما هو الاسم الآخر لسورة 'محمد'؟",
+    options: ["القتال", "النور", "الفتح", "الأنفال"],
+    correct: "القتال"
+  },
+];
+
+
+
+
+//Restart Quiz
+restart.addEventListener("click", () => {
+  
+  initial();
+  displayContainer.classList.remove("hide");
+  scoreContainer.classList.add("hide");
+});
+
+//Next Button
+nextBtn.addEventListener(
+  "click",
+  (displayNext = () => {
+    // increment questionCount and displayedQuestionsCount
+    questionCount += 1;
+    displayedQuestionsCount += 1;
+
+    // Check if we have reached the 10th question
+    if (displayedQuestionsCount === 5) {
+      // Hide question container and display score
+      displayContainer.classList.add("hide");
+      scoreContainer.classList.remove("hide");
+      // Display user score
+      userScore.innerHTML = scoreCount + " الدرجة ";
+    } else {
+      // Display questionCount
+      countOfQuestion.innerHTML = questionCount + 1 + "  سؤال";
+
+      // Display quiz
+      quizDisplay(questionCount);
+      count = 11;
+      clearInterval(countdown);
+      timerDisplay();
+    }
+  })
+);
+
+//Timer
+const  timerDisplay = () => {
+  countdown = setInterval(() => {
+    count--;
+    timeLeft.innerHTML = `${count}`;
+
+
+    // تغيير لون العداد إلى الأحمر عندما يكون المتبقي أقل من 5 ثواني
+    if (count < 5) {
+      timeLeft1.classList.add("warning-bg");
+    } else {
+      timeLeft1.classList.remove("warning-bg");
+    }
+
+    if (count == 0) {
+      clearInterval(countdown);
+      displayNext();
+    }
+  }, 2000);
+};
+
+//Display quiz
+const quizDisplay = (questionCount) => {
+  let quizCards = document.querySelectorAll(".container-mid");
+  //Hide other cards
+  quizCards.forEach((card) => {
+    card.classList.add("hide");
+  });
+  //display current question card
+  quizCards[questionCount].classList.remove("hide");
+};
+
+
+
+
+//Quiz Creation
+// Quiz Creation
+function quizCreator() {
+  // شطب الأسئلة السابقة
+  quizContainer.innerHTML = "";
+
+  // عشوائيًا خلط الأسئلة واختيار أول 10 منها
+  const selectedQuestions = quizArray.sort(() => Math.random() - 0.5).slice(0,5);
+
+  // توليد الأسئلة
+  for (let i of selectedQuestions) {
+    // عشوائيًا خلط الخيارات
+    i.options.sort(() => Math.random() - 0.5);
+
+    // إنشاء بطاقة السؤال
+    let div = document.createElement("div");
+    div.classList.add("container-mid", "hide");
+
+    // إضافة السؤال
+    let question_DIV = document.createElement("p");
+    question_DIV.classList.add("question");
+    question_DIV.innerHTML = i.question;
+    div.appendChild(question_DIV);
+
+    // إضافة الخيارات
+    div.innerHTML += `
+      <button class="option-div" onclick="checker(this)">${i.options[0]}</button>
+      <button class="option-div" onclick="checker(this)">${i.options[1]}</button>
+      <button class="option-div" onclick="checker(this)">${i.options[2]}</button>
+      <button class="option-div" onclick="checker(this)">${i.options[3]}</button>
+    `;
+    quizContainer.appendChild(div);
+  }
+}
+
+
+//Checker Function to check if option is correct or not
+function checker(userOption) {
+  let userSolution = userOption.innerText;
+  let question =
+    document.getElementsByClassName("container-mid")[questionCount];
+  let options = question.querySelectorAll(".option-div");
+
+  //if user clicked answer == correct option stored in object
+  if (userSolution === quizArray[questionCount].correct) {
+    userOption.classList.add("correct");
+    scoreCount++;
+  } else {
+    userOption.classList.add("incorrect");
+    //For marking the correct option
+    options.forEach((element) => {
+      if (element.innerText == quizArray[questionCount].correct) {
+        element.classList.add("correct");
+      }
+    });
+  }
+
+  //clear interval(stop timer)
+  clearInterval(countdown);
+  //disable all options
+  options.forEach((element) => {
+    element.disabled = true;
+  });
+}
+
+//initial setup
+// initial setup
+function initial() {
+  quizContainer.innerHTML = "";
+  questionCount = 0;
+  displayedQuestionsCount = 0; // reset displayed questions count
+  scoreCount = 0;
+  count = 11;
+  clearInterval(countdown);
+  timerDisplay();
+  quizCreator();
+  quizDisplay(questionCount);
+}
+
+
+//when user click on start button
+startButton.addEventListener("click", () => {
+  document.body.style.backgroundImage = "url('image/NzIw\ \(1\).jfif')";
+  startScreen.classList.add("hide");
+  displayContainer.classList.remove("hide");
+  initial();
+});
+
+//hide quiz and display start screen
+window.onload = () => {
+  startScreen.classList.remove("hide");
+  displayContainer.classList.add("hide");
+};
+
+  
+  
+  
+  </script>
+  </body>
+</html>
